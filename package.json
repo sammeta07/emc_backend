@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/sammeta07/emc_backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.2.1"
   }
 }
