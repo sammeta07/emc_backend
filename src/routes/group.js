@@ -1,13 +1,7 @@
 import mysql from 'mysql2/promise';
 
 // MySQL connection config
-const pool = mysql.createPool({
-  host: 'mysql-151b62fd-hariprasad8976-b2ce.l.aivencloud.com',
-  user: 'avnadmin',
-  password: 'REMOVED_SECRET',
-  database: 'defaultdb',
-  port: 11736
-});
+
 
 const createdGroupSchema = {
   body: {
