@@ -12,7 +12,7 @@ await fastify.register(cors);
 await fastify.register(groupRouter);
 fastify.register(fastifyMysql, {
   promise: true,
-  connectionString: 'mysql://avnadmin:REMOVED_SECRET@mysql-151b62fd-hariprasad8976-b2ce.l.aivencloud.com:11736/defaultdb?ssl-mode=REQUIRED'
+  connectionString: process.env.MYSQL_CONNECTION_STRING
 });
 
 fastify.get('/', async (request, reply) => {

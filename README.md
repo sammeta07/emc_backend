@@ -23,4 +23,4 @@ This is a basic Node.js Express backend server.
 - Update/add endpoints in `index.js` as needed.
 
 ##
-mysql --host mysql-151b62fd-hariprasad8976-b2ce.l.aivencloud.com --port 11736 --user avnadmin --password REMOVED_SECRET event_manager
+mysql --host <host> --port <port> --user <user> --password <password> <database>
