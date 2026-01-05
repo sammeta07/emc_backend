@@ -2,9 +2,6 @@
 import mysql from 'mysql2/promise';
 
 // MySQL connection config
-const pool = mysql.createPool({
-  uri: process.env.MYSQL_CONNECTION_STRING
-});
 
 
 const createdGroupSchema = {

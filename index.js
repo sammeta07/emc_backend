@@ -1,44 +1,32 @@
-// const express = require('express');
-// const cors = require('cors');
-// const app = express();
-// const port = 3000;
+import Fastify from 'fastify';
+import groupRouter from './src/routes/groups.js';
+import cors from '@fastify/cors';
+import fastifyMysql from '@fastify/mysql';
 
-// app.use(express.json());
-// app.use(cors({ origin: 'https://ubiquitous-enigma-49r5j667q5vf74vj-4200.app.github.dev' })); 
 
-// app.get('/', (req, res) => {
-//   res.send('Hello from Express!');
-// });
+const fastify = new Fastify({
+  logger: true
+});
 
-// // Example API endpoint
-// app.get('/api/health', (req, res) => {
-//   res.json({ status: 'ok' });
-// });
+await fastify.register(cors);
+await fastify.register(groupRouter);
 
-// // Register endpoint
-// app.post('/register', (req, res) => {
-//   const { username, password } = req.body;
-//   // Simple example: just echo back the username (no real user storage)
-//   if (!username || !password) {
-//     return res.status(400).json({ success: false, message: 'Username and password are required' });
-//   }
-//   // In a real app, you would save the user to a database here
-//   res.json({ success: true, message: 'User registered', user: { username } });
-// });
+// fastify registration for mysql
 
-// // Login endpoint
-// app.post('/login', (req, res) => {
-//   const { username, password } = req.body;
-//   // Simple example: hardcoded credentials
-//   // if (username === 'admin' && password === 'password') {
-//   //   res.json({ success: true, message: 'Login successful' });
-//   // } else {
-//   //   res.status(401).json({ success: false, message: 'Invalid credentials' });
-//   // }
-//   console.log('Login attempt for user:', JSON.stringify(req.body));
-//   res.json({ success: true, message: 'Login successful' });
-// });
 
-// app.listen(port, () => {
-//   console.log(`Server running at http://localhost:${port}`);
-// });
+fastify.get('/', async (request, reply) => {
+  return { hello: 'world' };
+});
+
+const start = async () => {
+    const PORT = process.env.PORT || 3000;
+    try {
+        await fastify.listen({ port: PORT });
+        console.log(`Server running at http://localhost:${PORT}`);
+    } catch (err) {
+        fastify.log.error(err);
+        process.exit(1);
+    }
+}
+
+start();
