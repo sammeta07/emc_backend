@@ -18,7 +18,7 @@ const createdGroupSchema = {
     required: ['groupName', 'email', 'mobile']
   },
   response: {
-    201: {
+    200: {
       type: 'object',
       properties: {
         message: { type: 'string' },
@@ -36,7 +36,7 @@ async function groupRouter(fastify, options) {
         'INSERT INTO `groups` (groupName, email, mobile, password, confirmPassword) VALUES (?, ?, ?, ?, ?)',
         [groupName, email, mobile, password, confirmPassword]
       );
-      reply.code(201);
+      reply.code(200);
       return {
         message: 'Group Created Successfully',
         id: result.insertId
