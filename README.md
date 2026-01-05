@@ -21,3 +21,6 @@ This is a basic Node.js Express backend server.
 ## Notes
 - `node_modules` is excluded from git via `.gitignore`.
 - Update/add endpoints in `index.js` as needed.
+
+##
+mysql --host mysql-151b62fd-hariprasad8976-b2ce.l.aivencloud.com --port 11736 --user avnadmin --password REMOVED_SECRET event_manager
