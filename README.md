@@ -21,6 +21,3 @@ This is a basic Node.js Express backend server.
 ## Notes
 - `node_modules` is excluded from git via `.gitignore`.
 - Update/add endpoints in `index.js` as needed.
-
-##
-mysql --host <host> --port <port> --user <user> --password <password> <database>

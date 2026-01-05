@@ -10,10 +10,9 @@ const fastify = new Fastify({
 
 await fastify.register(cors);
 await fastify.register(groupRouter);
-fastify.register(fastifyMysql, {
-  promise: true,
-  connectionString: process.env.MYSQL_CONNECTION_STRING
-});
+
+// fastify registration for mysql
+
 
 fastify.get('/', async (request, reply) => {
   return { hello: 'world' };
