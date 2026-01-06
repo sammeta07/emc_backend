@@ -2,7 +2,9 @@ import Fastify from 'fastify';
 import groupRouter from './src/routes/groups.js';
 import cors from '@fastify/cors';
 import fastifyMysql from '@fastify/mysql';
+import dotenv from "dotenv";
 
+dotenv.config(); 
 
 const fastify = new Fastify({
   logger: true
@@ -20,6 +22,8 @@ fastify.get('/', async (request, reply) => {
 
 const start = async () => {
     const PORT = process.env.PORT || 3000;
+    console.log(PORT);
+    
     try {
         await fastify.listen({ port: PORT });
         console.log(`Server running at http://localhost:${PORT}`);
