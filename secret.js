@@ -11,5 +11,6 @@ export const pool = mysql.createPool({
   port: Number(process.env.DB_PORT),
 });
 
+console.log("db config");
 
 export { pool };
