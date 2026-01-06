@@ -1,32 +1,42 @@
+
 import Fastify from 'fastify';
-import groupRouter from './src/routes/groups.js';
 import cors from '@fastify/cors';
-import fastifyMysql from '@fastify/mysql';
+import groupRouter from './src/routes/groups.js';
+import { pool } from './secret.js';
 
-
-const fastify = new Fastify({
-  logger: true
+// Create Fastify instance
+const fastify = Fastify({
+  logger: true,
 });
 
-await fastify.register(cors);
-await fastify.register(groupRouter);
+// Register plugins and routes
+async function buildServer() {
+  // Register CORS
+  await fastify.register(cors);
 
-// fastify registration for mysql
+  // Decorate Fastify instance with pool for DB access
+  fastify.decorate('pool', pool);
 
+  // Register routes
+  await fastify.register(groupRouter);
 
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' };
-});
+  // Health check route
+  fastify.get('/', async (request, reply) => {
+    return { hello: 'world' };
+  });
+}
 
-const start = async () => {
-    const PORT = process.env.PORT || 3000;
-    try {
-        await fastify.listen({ port: PORT });
-        console.log(`Server running at http://localhost:${PORT}`);
-    } catch (err) {
-        fastify.log.error(err);
-        process.exit(1);
-    }
+// Start server
+async function start() {
+  try {
+    await buildServer();
+    const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
+    await fastify.listen({ port: PORT, host: '0.0.0.0' });
+    console.log(`Server running at http://localhost:${PORT}`);
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
 }
 
 start();

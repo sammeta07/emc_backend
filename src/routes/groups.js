@@ -1,8 +1,5 @@
 
-import mysql from 'mysql2/promise';
-
-// MySQL connection config
-
+import { pool } from '../../secret.js';
 
 const createdGroupSchema = {
   body: {
@@ -10,16 +7,17 @@ const createdGroupSchema = {
     properties: {
       groupName: { type: 'string' },
       email: { type: 'string' },
-      mobile: { type: 'number' }
+      mobile: { type: 'number' },
+      password: { type: 'string' },
     },
-    required: ['groupName', 'email', 'mobile']
+    required: ['groupName', 'email', 'mobile', 'password']
   },
   response: {
     200: {
       type: 'object',
       properties: {
         message: { type: 'string' },
-        id: { type: 'string' },
+        groupId: { type: 'string' },
       },
     }
   }
@@ -27,16 +25,16 @@ const createdGroupSchema = {
 
 async function groupRouter(fastify, options) {
   fastify.post('/api/create_group', { schema: createdGroupSchema }, async (request, reply) => {
-    const { groupName, email, mobile, password, confirmPassword } = request.body;
+    const { groupName, email, mobile, password,  } = request.body;
     try {
       const [result] = await pool.execute(
-        'INSERT INTO `groups` (groupName, email, mobile, password, confirmPassword) VALUES (?, ?, ?, ?, ?)',
-        [groupName, email, mobile, password, confirmPassword]
+        'INSERT INTO `groups` (groupName, email, mobile, password) VALUES (?, ?, ?, ?)',
+        [groupName, email, mobile, password]
       );
       reply.code(200);
       return {
         message: 'Group Created Successfully',
-        id: result.insertId
+        groupId: result.insertId
       };
     } catch (error) {
       reply.code(500);
