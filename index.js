@@ -1,22 +1,11 @@
 import Fastify from 'fastify';
-import groupRouter from './src/routes/groups.js';
+import groupsRouter from './src/routes/groups.js';
 import cors from '@fastify/cors';
-import fastifyMysql from '@fastify/mysql';
 
-
-const fastify = new Fastify({
-  logger: true
-});
+const fastify = new Fastify({logger: true});
 
 await fastify.register(cors);
-await fastify.register(groupRouter);
-
-// fastify registration for mysql
-
-
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' };
-});
+await fastify.register(groupsRouter);
 
 const start = async () => {
     const PORT = process.env.PORT || 3000;
