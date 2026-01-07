@@ -1,30 +1,12 @@
 
 import Fastify from 'fastify';
+import groupsRouter from './src/routes/groups.js';
 import cors from '@fastify/cors';
-import groupRouter from './src/routes/groups.js';
-import { pool } from './secret.js';
 
-// Create Fastify instance
-const fastify = Fastify({
-  logger: true,
-});
+const fastify = new Fastify({logger: true});
 
-// Register plugins and routes
-async function buildServer() {
-  // Register CORS
-  await fastify.register(cors);
-
-  // Decorate Fastify instance with pool for DB access
-  fastify.decorate('pool', pool);
-
-  // Register routes
-  await fastify.register(groupRouter);
-
-  // Health check route
-  fastify.get('/', async (request, reply) => {
-    return { hello: 'world' };
-  });
-}
+await fastify.register(cors);
+await fastify.register(groupsRouter);
 
 // Start server
 async function start() {

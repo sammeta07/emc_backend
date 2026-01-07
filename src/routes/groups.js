@@ -1,5 +1,5 @@
 
-import { pool } from '../../secret.js';
+import  pool  from '../../secret.js';
 
 const createdGroupSchema = {
   body: {
@@ -10,22 +10,23 @@ const createdGroupSchema = {
       mobile: { type: 'number' },
       password: { type: 'string' },
     },
-    required: ['groupName', 'email', 'mobile', 'password']
+    required: ['groupName', 'email', 'mobile', 'password'],
   },
   response: {
     200: {
       type: 'object',
       properties: {
         message: { type: 'string' },
-        groupId: { type: 'string' },
+        groupId: { type: 'number' },
       },
     }
   }
 };
 
-async function groupRouter(fastify, options) {
+async function groupsRouter(fastify, options) {
   fastify.post('/api/create_group', { schema: createdGroupSchema }, async (request, reply) => {
-    const { groupName, email, mobile, password,  } = request.body;
+    console.log(request.body);
+    const { groupName, email, mobile, password } = request.body;
     try {
       const [result] = await pool.execute(
         'INSERT INTO `groups` (groupName, email, mobile, password) VALUES (?, ?, ?, ?)',
@@ -43,4 +44,4 @@ async function groupRouter(fastify, options) {
   });
 }
 
-export default groupRouter;
+export default groupsRouter;
