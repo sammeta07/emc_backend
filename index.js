@@ -11,7 +11,6 @@ await fastify.register(groupsRouter);
 // Start server
 async function start() {
   try {
-    await buildServer();
     const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
     await fastify.listen({ port: PORT, host: '0.0.0.0' });
     console.log(`Server running at http://localhost:${PORT}`);
