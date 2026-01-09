@@ -1,5 +1,5 @@
 import Fastify from 'fastify';
-import groupsRouter from './src/routes/groups.js';
+import groupsRouter from './src/routes/groups/groups.js';
 import cors from '@fastify/cors';
 
 const fastify = new Fastify({logger: true});
